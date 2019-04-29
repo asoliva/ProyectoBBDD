@@ -80,7 +80,7 @@ if(valor.equals("Equipos")){%>
     <label for="vicepresidente">Vicepresidente</label>
     <input type="text" class="form-control" id="vicepresidente"  placeholder="Vicepresidente" name="vicepresidente">
   </div>
-              <select name="datos" id="for">
+              <select name="datos" style="visibility:hidden;" id="for">
             <option value="Equipos" selected><b>Equipos</b></option>
             </select>
             <br>
@@ -116,14 +116,46 @@ if(valor.equals("Equipos")){%>
     <label for="idEquipoJugador">idEquipo</label>
     <input type="text" class="form-control" id="idEquipoJugador" placeholder="idEquipoJugador" name="idEquipoJugador">
   </div>
-            <select name="datos" id="for">
+            <select name="datos" style="visibility:hidden;" id="for">
             <option value="Jugadores" selected><b>Jugadores</b></option>
             </select>
             <br>
 	<input style="margin-top:10px; font-family: Amatic SC, sans-serif;" type="submit" class="w3-button w3-xxlarge w3-black" value="INSERTAR DATOS">
 </form>
-<%}else
+<%}else if(valor.equals("Entrenadores"))
 	{%>
+	  <form method="post" action="verdatos.jsp">
+    <div class="form-group">
+    <label for="idEntrenador">idEntrenador(No repetir)</label>
+    <input type="text" class="form-control" id="idEntrenador" placeholder="idEntrenador" name="idEntrenador">
+  </div>
+  <div class="form-group">
+    <label for="nombre">Nombre</label>
+    <input type="text" class="form-control" id="nombre" placeholder="Nombre" name="nombre">
+  </div>
+  <div class="form-group">
+    <label for="apellidos">Apellidos</label>
+    <input type="text" class="form-control" id="apellidos" placeholder="Apellidos" name="apellidos">
+  </div>
+    <div class="form-group">
+    <label for="fechaNacimiento">Fecha de Nacimiento (AAAA-MM-DD)</label>
+    <input type="text" class="form-control" id="fechaNacimiento" placeholder="Fecha de Fundacion" name="fechaNacimiento">
+  </div>
+    <div class="form-group">
+    <label for="Nacionalidad">Nacionalidad</label>
+    <input type="text" class="form-control" id="Nacionalidad" placeholder="Nacionalidad" name="Nacionalidad">
+  </div>
+        <div class="form-group">
+    <label for="idEquipoEntrenador">idEquipo</label>
+    <input type="text" class="form-control" id="idEquipoEntrenador" placeholder="idEquipoEntrenador" name="idEquipoEntrenador">
+  </div>
+            <select name="datos" style="visibility:hidden;" id="for">
+            <option value="Entrenadores" selected><b>Entrenadores</b></option>
+            </select>
+            <br>
+	<input style="margin-top:10px; font-family: Amatic SC, sans-serif;" type="submit" class="w3-button w3-xxlarge w3-black" value="INSERTAR DATOS">
+</form>
+	<%}else{ %>
 	<h1>No ha seleccionado ninguna tabla.</h1>
 	<%} %>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

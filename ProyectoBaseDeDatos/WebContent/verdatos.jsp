@@ -41,6 +41,14 @@ try {
 </style>
 </head>
 <body>
+<script>
+function hideshow(){
+var frm=document.form1;
+if(frm.style.display=="block"){frm.style.display="none"}
+else
+if(frm.style.display=="none"){frm.style.display="block"}
+}
+</script>
 <%
 String valor = request.getParameter("datos");
 String tabla = request.getParameter("datos");
@@ -49,7 +57,7 @@ beanDB basededatos = new beanDB();
 <h1><%=session.getAttribute("usuario") %>: Estos son los datos</h1>
 <hr/>
         <form action="insert.jsp" method="post">
-        <select id="t" name="tabla">
+        <select id="t" name="tabla" style="visibility:hidden;">
       <option value="<%=request.getParameter("datos")%>" selected><%=request.getParameter("datos")%></option>
       </select>    
 <div style="margin-top:40px">
@@ -60,11 +68,16 @@ beanDB basededatos = new beanDB();
 	<input style="margin-top:10px; font-family: Amatic SC, sans-serif;" type="submit" class="w3-button w3-xxlarge w3-black" value="INSERTAR DATOS">
         </form>
         
-            
+                    <form action="update.jsp" method="post">   
+                    <select id="t" name="tabla" style="visibility:hidden; float:right">
+      <option value="<%=request.getParameter("datos")%>" selected><%=request.getParameter("datos")%></option>
+      </select>
+      	<input style="margin-top:10px; font-family: Amatic SC, sans-serif;" type="submit" class="w3-button w3-xxlarge w3-black" value="ACTUALIZAR DATOS">
+        </form>
 
      
 	<% 
-		
+		//INSERTAR VALORES
 	String idEquipo = request.getParameter("idEquipo") + ",";
 	String nombre = "'" + request.getParameter("nombre") + "',";
 	String direccion = "'" + request.getParameter("direccion") + "',";
@@ -91,7 +104,43 @@ beanDB basededatos = new beanDB();
     		basededatos.insert(insert);
     		basededatos.insert(insert2);
     		}
-        %>    
+    	else if (valor.equals("Entrenadores")) { 
+    		String idEntrenador = request.getParameter("idEntrenador") + ",";
+    		String nombreJ = "'" + request.getParameter("nombre") + "',";
+    		String apellidos = "'" + request.getParameter("apellidos") + "',";
+    		String fechaNacimiento = "'" + request.getParameter("fechaNacimiento") + "',";
+    		String nacionalidad = "'" + request.getParameter("Nacionalidad") + "'";
+    		String idEquipo2 = request.getParameter("idEquipoEntrenador");
+    		insert = "INSERT INTO " + tabla + " VALUES(" + idEntrenador + nombreJ + apellidos + fechaNacimiento + nacionalidad + ")";
+    		String insert2 = "INSERT INTO Entrenador_Club VALUES(" + idEntrenador + idEquipo2 + ")";;
+    		basededatos.insert(insert);
+    		basededatos.insert(insert2);
+    		}
+        %>  
+         
+        <%//ACTUALIZAR DATOS
+        if (valor.equals("Equipos")) {
+    	idEquipo = request.getParameter("idEquipo");
+        String nombreColumna = request.getParameter("nombreColumna") + "=";
+        String nuevoValor = "'" + request.getParameter("nuevoValor") + "'";
+        String update = "UPDATE " + valor + " SET " + nombreColumna + nuevoValor + " WHERE idEquipo =" + idEquipo;
+        basededatos.update(update);
+        }
+        else if (valor.equals("Jugadores")) { 
+    		String idJugador = request.getParameter("idJugador");
+    		String nombreColumna = request.getParameter("nombreColumna") + "=";
+    		String nuevoValor = "'" + request.getParameter("nuevoValor") + "'";
+    		String update = "UPDATE " + valor + " SET " + nombreColumna + nuevoValor + " WHERE idJugador =" + idJugador;
+            basededatos.update(update);
+    		}
+    	else if (valor.equals("Entrenadores")) { 
+    		String idEntrenador = request.getParameter("idEntrenador");
+    		String nombreColumna = request.getParameter("nombreColumna") + "=";
+    		String nuevoValor = "'" + request.getParameter("nuevoValor") + "'";
+    		String update = "UPDATE " + valor + " SET " + nombreColumna + nuevoValor + " WHERE idEntrenador =" + idEntrenador;
+            basededatos.update(update);
+    	}
+        %>
 			<div style="margin-top:50px">
             <span class="w3-text-white w3-hide-small" style="font-size:100px"></span>
             <span class="w3-text-white w3-hide-large w3-hide-medium" style="font-size:60px"></span>
